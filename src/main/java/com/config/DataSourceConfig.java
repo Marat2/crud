@@ -1,9 +1,7 @@
 package com.config;
 
 import com.domain.User;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +22,12 @@ import java.util.Properties;
 @ComponentScan(value = "com")
 public class DataSourceConfig {
 
-    @Autowired
+
     private Environment env;
+    @Autowired
+    public DataSourceConfig(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource getDataSource() {
@@ -45,7 +47,6 @@ public class DataSourceConfig {
         Properties props=new Properties();
         props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        //props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         factoryBean.setHibernateProperties(props);
         factoryBean.setAnnotatedClasses(User.class);
 

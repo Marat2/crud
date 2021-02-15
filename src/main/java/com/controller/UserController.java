@@ -3,22 +3,25 @@ package com.controller;
 import com.domain.User;
 import com.service.UserService;
 import org.slf4j.Logger;
-import com.service.UserServiceImp;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
 @Controller
 public class UserController {
+
+    private UserService userService;
+    private  Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
-    UserService userService;
-    Logger logger = LoggerFactory.getLogger(getClass());
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping("/")
     public String getIndex(ModelMap model){

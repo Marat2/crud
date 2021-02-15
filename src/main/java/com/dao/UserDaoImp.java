@@ -13,8 +13,13 @@ import java.util.List;
 public class UserDaoImp implements UserDao{
 
 
-    @Autowired
+
     private SessionFactory sessionFactory;
+    @Autowired
+    public UserDaoImp(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Transactional
     public void add(User user) {
         sessionFactory.getCurrentSession().save(user);
